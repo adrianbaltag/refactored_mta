@@ -5,3 +5,15 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = []
+
+
+# The build-system section tells Python tools (like pip, uv, poetry, etc.) how to build and install the project.
+# This specifies that we need setuptools (>=42) and wheel for building, and the build backend is setuptools.
+# uv, pip, and other build tools will use this to package and install the project.
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+# make sure to set the package directory to src to avoid import errors
+[tool.setuptools]
+package-dir = { "" = "src" }
+packages.find = { where = ["src"] }
