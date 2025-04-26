@@ -4,7 +4,17 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "easyocr>=1.7.2",
+    "keyboard>=0.13.5",
+    "mss>=10.0.0",
+    "opencv-python>=4.11.0.86",
+    "pip>=25.1",
+    "pyautogui>=0.9.54",
+    "python-docx>=1.1.2",
+    "pywinauto>=0.6.9",
+    "screeninfo>=0.8.1",
+]
 
 
 # The build-system section tells Python tools (like pip, uv, poetry, etc.) how to build and install the project.

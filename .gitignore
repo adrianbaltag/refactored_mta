@@ -25,6 +25,9 @@ wheels/
 .installed.cfg
 *.egg
 
+# Ignore egg-info directories inside src/ folder
+src/**/*.egg-info/
+
 # IDE specific files
 .idea/
 .vscode/
@@ -39,5 +42,8 @@ Thumbs.db
 **/images/*.png
 **/img_to_read/*.png
 
-# Ignore config files inside utils
-src/my_package/utils/config.py
+# Ignore egg-info directories in the root and inside the src/ folder
+*.egg-info/
+src/**/*.egg-info/
+
+
