@@ -59,7 +59,7 @@ def read_image(img_index: int) -> dict:
     result = reader.readtext(img, detail=0, paragraph=True)
     print(result)
 
-    ticket_number = "First name"
+    ticket_number = "Complete Web Form First name"
     try:
         index = result.index(ticket_number)
     except ValueError:
