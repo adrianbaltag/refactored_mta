@@ -2,7 +2,7 @@
 This module initializes the 'constants' package.
 """
 
-from .constant_variables import MONITOR_INDEX
+from .constant_variables import MONITOR_INDEX, REMEDY_SCREENSHOT_INDEX
 from .urls import URL_FORMY
 
-__all__ = ["URL_FORMY", "MONITOR_INDEX"]
+__all__ = ["URL_FORMY", "MONITOR_INDEX", "REMEDY_SCREENSHOT_INDEX"]
