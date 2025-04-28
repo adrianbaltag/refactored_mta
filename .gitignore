@@ -43,6 +43,8 @@ Thumbs.db
 # **/img_to_read/*.png
 # **/template_img/*.png
 
+# Ignore all PNG files
+**/*.png
 # Ignore egg-info directories in the root and inside the src/ folder
 *.egg-info/
 src/**/*.egg-info/
