@@ -39,7 +39,7 @@ src/**/*.egg-info/
 Thumbs.db
 
 # Ignore specific PNG files in images folders
-**/images/*.png
+# **/images/*.png
 # **/img_to_read/*.png
 
 # Ignore egg-info directories in the root and inside the src/ folder

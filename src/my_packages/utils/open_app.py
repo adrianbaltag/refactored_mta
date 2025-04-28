@@ -6,12 +6,13 @@ import screeninfo
 from pywinauto import findwindows
 from pywinauto.application import Application
 
-# pylint: disable=import-error
 from my_packages.constants_module.constant_variables import MONITOR_INDEX
+
+# pylint: disable=import-error
 from my_packages.constants_module.urls import URL_FORMY
 
 
-def open_app(url, index=None):
+def open_app(url, index=MONITOR_INDEX):
     """__summary__:
     This function opens a new browser window on a specific monitor with the provided URL.
     Windows-only implementation.
@@ -84,4 +85,4 @@ def open_app(url, index=None):
 
 
 if __name__ == "__main__":
-    open_app(URL_FORMY, index=MONITOR_INDEX)
+    open_app(URL_FORMY)

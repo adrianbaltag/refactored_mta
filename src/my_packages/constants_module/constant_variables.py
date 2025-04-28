@@ -1,8 +1,9 @@
 """This module contains constants  used in the project."""
 
 # browser index of choosing the monitor
-# 0 - CENTERED MONITOR --> HOME SETUP
-MONITOR_INDEX = 0
+# 3 - CENTERED MONITOR --> HOME SETUP / desk setup -->4 MONITORS
+# 0 -CENTERED MONITOR --> PERSONAL LAPTOP --> 3 MONITORS
+MONITOR_INDEX = 3
 
 # remedy screenshot: for tikct #, mdn, prob desc
 REMEDY_SCREENSHOT_INDEX = 0
