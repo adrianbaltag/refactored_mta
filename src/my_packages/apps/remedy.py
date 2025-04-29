@@ -4,7 +4,7 @@ import time
 
 import keyboard
 
-from my_packages.constants_module.urls import URL_FORMY
+from my_packages.constants_module.urls import URL_REMEDY
 from my_packages.docx_module.create_word_doc import create_word_doc
 
 # pylint: disable=E0401, W0105,W0012,W0612, F841
@@ -25,11 +25,11 @@ def remedy():
     time.sleep(1)  # Wait for the user input to be processed
 
     open_app(
-        URL_FORMY
+        URL_REMEDY
     )  # Open the form URL in the default web browser, on selected monitor index based
     time.sleep(1)  # Wait for the form to load
 
-    capture_and_click("screenshot", "Enter first name")  # select same index as open_app
+    capture_and_click("screenshot", "Trouble-ID")  # select same index as open_app
 
     time.sleep(1)  # Wait for the screenshot to be taken
     keyboard.write(nrb_ticket)

@@ -1,7 +1,7 @@
 """This module contains constants  used in the project."""
 
 # browser index of choosing the monitor
-# 3 - CENTERED MONITOR --> HOME SETUP / desk setup -->4 MONITORS
+# 4 - CENTERED MONITOR --> HOME SETUP / desk setup -->4 MONITORS
 # 0 -CENTERED MONITOR --> PERSONAL LAPTOP --> 3 MONITORS
 MONITOR_INDEX = 3
 

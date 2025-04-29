@@ -5,7 +5,7 @@ import os
 import cv2
 import easyocr
 
-from my_packages.constants_module.constant_variables import REMEDY_SCREENSHOT_INDEX
+# from my_packages.constants_module.constant_variables import REMEDY_SCREENSHOT_INDEX
 
 
 def read_image(img_index: int) -> dict:
@@ -59,7 +59,7 @@ def read_image(img_index: int) -> dict:
     result = reader.readtext(img, detail=0, paragraph=True)
     print(result)
 
-    ticket_number = "Complete Web Form First name"
+    ticket_number = "Trouble-ID"
     try:
         index = result.index(ticket_number)
     except ValueError:
@@ -69,7 +69,7 @@ def read_image(img_index: int) -> dict:
         ticket = result[index + 1]
     print(f"Ticket number: {ticket}")
 
-    cx_mdn = "Last name"
+    cx_mdn = "MDN"
     try:
         index = result.index(cx_mdn)
     except ValueError:
@@ -79,7 +79,7 @@ def read_image(img_index: int) -> dict:
         mdn = result[index + 1]
     print(f"MDN: {mdn}")
 
-    prob_desc = "Job title"
+    prob_desc = "Problem Description"
     try:
         index = result.index(prob_desc)
     except ValueError:
@@ -94,4 +94,4 @@ def read_image(img_index: int) -> dict:
 
 
 if __name__ == "__main__":
-    read_image(REMEDY_SCREENSHOT_INDEX)
+    read_image(0)
