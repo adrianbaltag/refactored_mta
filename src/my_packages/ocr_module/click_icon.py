@@ -10,26 +10,32 @@ from pathlib import Path
 
 import cv2
 import mss
+import mss.tools
 import numpy as np
 import pyautogui
 
-# from mss import mss
 from my_packages.constants_module.constant_variables import MONITOR_INDEX
+from my_packages.utils.select_monitor import select_monitor
 
 
-def click_icon(template_name, monitor_index=MONITOR_INDEX, threshold=0.8, click=True):
+def click_icon(
+    template_name, monitor_index=MONITOR_INDEX, threshold=0.7, click=True, debug=False
+):
     """
     Find and click on an image template within a specific monitor.
 
     Args:
         template_name (str): Name of the template image file (with extension)
-        monitor_index (int): Index of the monitor to search on (starts at 1)
+        monitor_index (int): Index of the monitor to search on (0-based)
         threshold (float): Matching threshold (0.0 to 1.0), higher means more exact match
         click (bool): Whether to click on the found image or just return coordinates
+        debug (bool): Whether to save debug screenshots
 
     Returns:
         tuple: (x, y) coordinates of the center of the matched image, or None if not found
     """
+    # Import mss correctly - import the specific mss class, not the module
+
     # Get the template path
     template_dir = Path("src/my_packages/template_img")
     template_path = template_dir / template_name
@@ -48,69 +54,80 @@ def click_icon(template_name, monitor_index=MONITOR_INDEX, threshold=0.8, click=
     template_gray = cv2.cvtColor(template, cv2.COLOR_BGR2GRAY)
     template_height, template_width = template_gray.shape
 
-    # Use MSS to get monitor information and take screenshot
-    with mss.mss() as sct:
-        # Get monitor information
-        monitors = sct.monitors
+    # Get the target monitor using select_monitor function
+    target_monitor = select_monitor()
+    print(
+        f"[INFO] Using monitor {monitor_index}: X={target_monitor.x}, Y={target_monitor.y}, Width={target_monitor.width}, Height={target_monitor.height}"
+    )
 
-        # Print all monitors for debugging
-        print(f"[INFO] Detected {len(monitors) - 1} monitors:")
-        for i, m in enumerate(monitors):
-            if i == 0:
-                print(f"  All monitors combined: {m}")
-            else:
-                print(f"  Monitor {i - 1}: {m}")
+    # Wait for the monitor to be ready
+    time.sleep(1)
 
-        # Check if monitor_index is valid
-        if monitor_index >= len(monitors):
-            raise ValueError(
-                f"Error: Monitor index {monitor_index} is out of range. Only {len(monitors) - 1} monitors detected."
-            )
+    # Define the monitor region for mss
+    monitor_region = {
+        "left": target_monitor.x,
+        "top": target_monitor.y,
+        "width": target_monitor.width,
+        "height": target_monitor.height,
+    }
 
-        # Get the requested monitor (mss uses 1-based indexing, and the first monitor is at index 1)
-        target_monitor = monitors[monitor_index]
-        print(f"[INFO] Using monitor {monitor_index}: {target_monitor}")
+    # Capture screenshot using mss
+    print(f"[INFO] Capturing monitor {monitor_index} using mss...")
+    with mss.mss() as sct:  # Use mss.mss() to create the instance
+        # Capture the monitor
+        screenshot = sct.grab(monitor_region)
 
-        # Wait for the monitor to be ready
-        time.sleep(1)
-
-        # Capture screenshot of the entire monitor
-        print(f"[INFO] Capturing monitor {monitor_index}...")
-        screenshot = sct.grab(target_monitor)
-        # Convert to numpy array
+        # Convert to numpy array - mss returns BGR format
         img = np.array(screenshot)
 
-        # Convert to grayscale
-        img_gray = cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
-
-        # Perform template matching
-        result = cv2.matchTemplate(img_gray, template_gray, cv2.TM_CCOEFF_NORMED)
-        # Find the best match
-        min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
-
-        # Check if match is good enough
-        if max_val < threshold:
-            print(
-                f"No match found for {template_name} (best match: {max_val:.2f}, threshold: {threshold})"
+        # For debugging: Save the screenshot to a temporary file
+        if debug:
+            debug_dir = Path("temp_screenshots")
+            debug_dir.mkdir(exist_ok=True)
+            timestamp = time.strftime("%Y%m%d_%H%M%S")
+            debug_filename = (
+                debug_dir / f"debug_{template_name.split('.')[0]}_{timestamp}.png"
             )
-            return None
+            # Use the proper way to save the screenshot with mss.tools
+            mss.tools.to_png(
+                screenshot.rgb, screenshot.size, output=str(debug_filename)
+            )
+            print(f"Saved debug screenshot to {debug_filename}")
 
-        # Calculate the center of the matched region
-        match_x = max_loc[0] + template_width // 2
-        match_y = max_loc[1] + template_height // 2
+    # Convert to grayscale - mss returns BGRA format
+    img_gray = cv2.cvtColor(img, cv2.COLOR_BGRA2GRAY)
 
-        # Adjust coordinates to global screen space
-        global_x = match_x + target_monitor["left"]
-        global_y = match_y + target_monitor["top"]
+    # Perform template matching
+    result = cv2.matchTemplate(img_gray, template_gray, cv2.TM_CCOEFF_NORMED)
+    # Find the best match
+    min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
 
-        # Click on the match if requested
-        if click:
-            pyautogui.click(global_x, global_y)
-            print(f"Clicked on {template_name} at ({global_x}, {global_y})")
+    # Check if match is good enough
+    if max_val < threshold:
+        print(
+            f"No match found for {template_name} (best match: {max_val:.2f}, threshold: {threshold})"
+        )
+        return None
 
-        return (global_x, global_y)
+    # Calculate the center of the matched region
+    match_x = max_loc[0] + template_width // 2
+    match_y = max_loc[1] + template_height // 2
+
+    # Adjust coordinates to global screen space
+    global_x = match_x + target_monitor.x
+    global_y = match_y + target_monitor.y
+
+    # Click on the match if requested
+    if click:
+        pyautogui.click(global_x, global_y)
+        print(f"Clicked on {template_name} at ({global_x}, {global_y})")
+
+    return (global_x, global_y)
 
 
 if __name__ == "__main__":
     # Example usage
-    click_icon("000115.png", threshold=0.8, click=True)
+    click_icon(
+        "enter-number.png",
+        debug=True,
+    )

@@ -10,12 +10,14 @@ import mss
 import numpy as np
 from PIL import Image
 
+from my_packages.constants_module.constant_variables import MONITOR_INDEX
+
 
 def capture_partial_screenshot(
     text_markers,
     save_full=False,
     confidence_threshold=0.7,
-    monitor_index=4,
+    monitor_index=MONITOR_INDEX,
 ):
     """
     Capture a cropped area from a screenshot that contains multiple specified text markers.
@@ -47,7 +49,7 @@ def capture_partial_screenshot(
             )
 
         # Select monitor by index (1-based index)
-        monitor = monitors[monitor_index]
+        monitor = monitors[monitor_index + 1]
         print(
             f"Capturing screenshot from Monitor {monitor_index}: {monitor}"
         )  # Debugging output
@@ -68,6 +70,7 @@ def capture_partial_screenshot(
     reader = easyocr.Reader(["en"], gpu=True)
     img_np = np.array(full_image)  # Convert PIL Image to numpy array
     ocr_results = reader.readtext(img_np, detail=1)
+    print(ocr_results)
 
     # Step 3: Find bounding boxes for all text markers
     found_boxes = []
@@ -115,7 +118,7 @@ def capture_partial_screenshot(
 
 if __name__ == "__main__":
     capture_partial_screenshot(
-        ["Python Modules", "Amazon"],
+        ["Customer Details", "eNB Name"],
         save_full=True,
-        confidence_threshold=0.7,
+        confidence_threshold=0.4,
     )

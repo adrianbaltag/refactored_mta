@@ -9,7 +9,7 @@ from pywinauto.application import Application
 from my_packages.constants_module.constant_variables import MONITOR_INDEX
 
 # pylint: disable=import-error
-from my_packages.constants_module.urls import URL_FORMY
+from my_packages.constants_module.urls import URL_NSP
 
 
 def open_app(url, index=MONITOR_INDEX):
@@ -85,4 +85,4 @@ def open_app(url, index=MONITOR_INDEX):
 
 
 if __name__ == "__main__":
-    open_app(URL_FORMY)
+    open_app(URL_NSP)

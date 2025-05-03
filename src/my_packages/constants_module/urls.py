@@ -2,3 +2,4 @@
 
 URL_FORMY = "https://formy-project.herokuapp.com/form"
 URL_REMEDY = "https://"
+URL_NSP = "https://"
