@@ -71,8 +71,6 @@ def nsp():
         click=True,
     )
 
-    # todo: add logic for femto !!!??? - depending on tab loading time.....
-
     time.sleep(3)  # Wait for the screenshot to be taken
     # Click on "Summary" tab
     capture_and_click(
