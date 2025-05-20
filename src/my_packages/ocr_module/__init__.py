@@ -7,6 +7,7 @@ from .capture_full_screenshot import capture_full_screenshot
 from .capture_partial_screenshot import capture_partial_screenshot
 from .click_icon import click_icon
 from .gpu_checkup import gpu_checkup
+from .nsp_extract_sites import get_most_common_site
 
 __all__ = [
     "gpu_checkup",
@@ -14,4 +15,5 @@ __all__ = [
     "capture_full_screenshot",
     "click_icon",
     "capture_partial_screenshot",
+    "get_most_common_site",
 ]
