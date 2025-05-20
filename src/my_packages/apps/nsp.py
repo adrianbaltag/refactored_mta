@@ -1,5 +1,6 @@
 # pylint:disable=W0105,C0413
 # ruff: noqa: E402
+# cSpell:ignore pyautogui,Volte,
 """This script holds the logic for the nsp application."""
 
 """WIP -NSP NOT WORKING - RETEST THE SCRIPT BY PIECES!!!!!!"""
@@ -8,11 +9,19 @@ import time
 import keyboard
 import pyautogui as pg
 
-from my_packages.constants_module.constant_variables import MONITOR_INDEX
+from my_packages.constants_module.constant_variables import (
+    ADJUSTMENT_MARKER,
+    MONITOR_INDEX,
+    SINR_SCREENSHOT_WIDTH,
+    SITES_SCREENSHOT_WIDTH,
+)
 from my_packages.constants_module.urls import URL_NSP
+from my_packages.docx_module.update_word_docx import update_word_docx
+from my_packages.docx_module.update_word_text import update_word_text
 from my_packages.ocr_module.capture_and_click import capture_and_click
 from my_packages.ocr_module.capture_partial_screenshot import capture_partial_screenshot
 from my_packages.ocr_module.click_icon import click_icon
+from my_packages.ocr_module.nsp_extract_sites import get_most_common_site
 from my_packages.utils.get_mdn import get_mdn
 from my_packages.utils.open_app import open_app
 
@@ -43,37 +52,40 @@ def nsp():
     pg.scroll(-7000)  # Scroll down the page
     time.sleep(3)  # Wait for the scroll to complete
 
-    # Create the tool
+    # Take the partial screenshot that includes both words
     capture_partial_screenshot(
         ["eNodeB", "Last used (UTC)"],
         save_full=True,
         confidence_threshold=0.7,
     )
 
-    # Cick on thr "home" icon
+    # CLick on thr "home" icon
     click_icon(
         "nsp-home-icon.png",
     )
     time.sleep(5)  # Wait for the screenshot to be taken
-    # Clic on x to close pop up
+    # Click on x to close pop up
     click_icon(
         "x.png",
         monitor_index=MONITOR_INDEX,
         click=True,
     )
+
+    # todo: add logic for femto !!!??? - depending on tab loading time.....
+
     time.sleep(3)  # Wait for the screenshot to be taken
     # Click on "Summary" tab
     capture_and_click(
         "SCREENSHOT",
         "Summary",
     )
-    time.sleep(3)  # Wait for the screenshot to be taken
+    time.sleep(5)  # Wait for the screenshot to be taken
 
     capture_and_click("SCREENSHOT", "Ticket Number")
     time.sleep(1)  # Wait for the screenshot to be taken
     capture_and_click("SCREENSHOT", "Ticket Number")
 
-    time.sleep(2)  # Wait for the screenshot to be taken
+    time.sleep(3)  #
     capture_and_click(
         "SCREENSHOT",
         "MDN",
@@ -100,80 +112,69 @@ def nsp():
     )
     time.sleep(1)  # Wait for the screenshot to be taken
     pg.scroll(-700)  # Scroll down the page
-    time.sleep(10)  # Wait for the page to load
+    time.sleep(5)  # Wait for the page to load
 
-    # # Take a screenshot that includes both words
-    # # saved_picture, picture_location = screenshot_tool.capture_area_by_multiple_text(
-    # #     ["Customer Details", "Volte"],
-    # #     confidence=0.7,
-    # #     monitor_index=2,
-    # # )
-    capture_partial_screenshot(
-        ["Customer Details", "Volte"],
-        save_full=True,
-        confidence_threshold=0.4,
-    )
-    time.sleep(1)
-
-    click_icon("marker.png", threshold=0.7)
+    click_icon("marker2.png", threshold=0.7, adjustment=ADJUSTMENT_MARKER)
     time.sleep(1)  # Wait for the screenshot to be taken
-    click_icon("marker.png", threshold=0.7)
+    click_icon("marker2.png", threshold=0.7, adjustment=ADJUSTMENT_MARKER)
     time.sleep(3)  # Wait for the screenshot to be taken
 
-    # # screenshot_tool.capture_area_by_multiple_text(
-    # #     ["H3 Grid", "More Details"],
-    # #     confidence=0.7,
-    # #     monitor_index=2,
-    # # )
     capture_partial_screenshot(
         ["H3 Grid", "More Details"],
-        save_full=True,
-        confidence_threshold=0.5,
+        save_full=False,
+        confidence_threshold=0.7,
+        zoom_factor=2.5,
+        zoom_sections=4,
+        enhance_contrast=1.5,
+        debug=False,
     )
     time.sleep(1)  # Wait for the screenshot to be taken
     click_icon("layers.png", threshold=0.5, click=True)
     time.sleep(3)  # Wait for the screenshot to be taken
     click_icon("outdoor.png", threshold=0.5, click=True)
 
-    time.sleep(1)
+    time.sleep(3)
 
-    click_icon("marker.png", threshold=0.7, click=True)
+    click_icon("marker2.png", threshold=0.7, click=True, adjustment=ADJUSTMENT_MARKER)
     time.sleep(1)  # Wait for the screenshot to be taken
-    click_icon("marker.png", threshold=0.7, click=True)
+    click_icon("marker2.png", threshold=0.7, click=True, adjustment=ADJUSTMENT_MARKER)
     time.sleep(1)  # Wait for the screenshot to be taken
 
-    # # screenshot_tool.capture_area_by_multiple_text(
-    # #     ["H3 Grid", "More Details"],
-    # #     confidence=0.7,
-    # #     monitor_index=2,
-    # # )
     capture_partial_screenshot(
         ["H3 Grid", "More Details"],
-        save_full=True,
-        confidence_threshold=0.5,
+        save_full=False,
+        confidence_threshold=0.7,
+        zoom_factor=2.5,
+        zoom_sections=4,
+        enhance_contrast=1.5,
+        debug=False,
     )
     time.sleep(1)  # Wait for the screenshot to be taken
-    click_icon("click-volte.png", threshold=0.5, click=True)
+
+    # update the docx file with sites screenshot
+    update_word_docx(
+        [0], SITES_SCREENSHOT_WIDTH
+    )  # update the docx file with sites screenshot
+    time.sleep(1)
+
+    # get the most common sites
+    most_used_sites = get_most_common_site(0)
+    update_word_text(most_used_sites)
+
     time.sleep(1)  # Wait for the screenshot to be taken
-    pg.scroll(-700)  # Scroll down the page
-    time.sleep(1)  # Wait for the scroll to complete
-
-    # click on ex[port to download the file
-    click_icon("export.png", threshold=0.5, click=True)
-    # pg.scroll(-1000)  # Scroll udown the page
-    # time.sleep(1)  # Wait for the scroll to complete
-
-    # gET THE SITES
-    # result = screenshot_tool.capture_area_by_multiple_text(
-    #     ["eNB Name", "Search"],
-    #     confidence=0.7,
-    #     monitor_index=2,
-    # )
-
-    # print(result)
-
+    # update with  sinr screenshot
+    update_word_docx(
+        [1], SINR_SCREENSHOT_WIDTH
+    )  # update the docx file with INDOOR SINR screenshot
+    time.sleep(1)
+    update_word_docx(
+        [1, 2], SINR_SCREENSHOT_WIDTH
+    )  # update the docx file with OUTDOOR SINR screenshot
+    time.sleep(1)
     """close the browser"""
-    # keyboard.press_and_release("ctrl+w")
+    keyboard.press_and_release("ctrl+w")
+    time.sleep(1)  # Wait for the screenshot to be taken
+    click_icon("nsp_leave.png", threshold=0.7, click=True)
 
 
 if __name__ == "__main__":

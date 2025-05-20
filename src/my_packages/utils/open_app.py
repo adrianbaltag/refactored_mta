@@ -1,4 +1,5 @@
 # pylint: disable=missing-module-docstring, missing-function-docstring, invalid-name, too-many-branches, too-many-locals, too-many-statements, broad-except
+# cSpell: ignore screeninfo, pywinauto, findwindows, Application, handle, top_window, restore, move_window, set_focus
 import subprocess
 import time
 

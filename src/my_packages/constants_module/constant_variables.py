@@ -6,5 +6,12 @@
 # 2 - RIGHT MONITOR --> OFFICE SETUP /
 MONITOR_INDEX = 3
 
-# remedy screenshot: for tikct #, mdn, prob desc
+# remedy screenshot: for ticket #, mdn, prob desc
 REMEDY_SCREENSHOT_INDEX = 0
+
+# ! ONLY for NSP marker to be used for click icon func
+ADJUSTMENT_MARKER = 25
+
+# ! NSP screenshot width for updating docx(most used sites, SINR)
+SITES_SCREENSHOT_WIDTH = 5
+SINR_SCREENSHOT_WIDTH = 2

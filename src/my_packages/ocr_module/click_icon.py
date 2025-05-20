@@ -14,12 +14,20 @@ import mss.tools
 import numpy as np
 import pyautogui
 
-from my_packages.constants_module.constant_variables import MONITOR_INDEX
+from my_packages.constants_module.constant_variables import (
+    ADJUSTMENT_MARKER,
+    MONITOR_INDEX,
+)
 from my_packages.utils.select_monitor import select_monitor
 
 
 def click_icon(
-    template_name, monitor_index=MONITOR_INDEX, threshold=0.7, click=True, debug=False
+    template_name,
+    monitor_index=MONITOR_INDEX,
+    threshold=0.7,
+    click=True,
+    debug=False,
+    adjustment=0,
 ):
     """
     Find and click on an image template within a specific monitor.
@@ -119,7 +127,8 @@ def click_icon(
 
     # Click on the match if requested
     if click:
-        pyautogui.click(global_x, global_y)
+        # # find the entire marker and click below it --> +25 pixels (if - will will click above it)
+        pyautogui.click(global_x, global_y + adjustment)
         print(f"Clicked on {template_name} at ({global_x}, {global_y})")
 
     return (global_x, global_y)
@@ -128,6 +137,7 @@ def click_icon(
 if __name__ == "__main__":
     # Example usage
     click_icon(
-        "enter-number.png",
+        "marker2.png",
         debug=True,
+        adjustment=ADJUSTMENT_MARKER,
     )
