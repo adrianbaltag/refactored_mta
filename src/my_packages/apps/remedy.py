@@ -40,6 +40,9 @@ def remedy():
 
     """Create a word doc file with the extracted text from the screenshot."""
     create_word_doc()  # Create a Word document with the extracted text
+    time.sleep(3)  # Wait for the document to be created
+    """close the browser"""
+    keyboard.press_and_release("ctrl+w")
 
 
 if __name__ == "__main__":

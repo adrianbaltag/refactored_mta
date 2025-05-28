@@ -4,7 +4,7 @@
 # 4 - CENTERED MONITOR --> HOME SETUP / desk setup -->4 MONITORS
 # 0 -CENTERED MONITOR --> PERSONAL LAPTOP --> 3 MONITORS
 # 2 - RIGHT MONITOR --> OFFICE SETUP /
-MONITOR_INDEX = 3
+MONITOR_INDEX = 2
 
 # remedy screenshot: for ticket #, mdn, prob desc
 REMEDY_SCREENSHOT_INDEX = 0

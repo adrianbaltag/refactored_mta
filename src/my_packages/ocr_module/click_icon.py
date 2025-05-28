@@ -14,10 +14,7 @@ import mss.tools
 import numpy as np
 import pyautogui
 
-from my_packages.constants_module.constant_variables import (
-    ADJUSTMENT_MARKER,
-    MONITOR_INDEX,
-)
+from my_packages.constants_module.constant_variables import MONITOR_INDEX
 from my_packages.utils.select_monitor import select_monitor
 
 
@@ -38,6 +35,7 @@ def click_icon(
         threshold (float): Matching threshold (0.0 to 1.0), higher means more exact match
         click (bool): Whether to click on the found image or just return coordinates
         debug (bool): Whether to save debug screenshots
+        adjustment (int): Adjustment in pixels for the click position (positive or negative)
 
     Returns:
         tuple: (x, y) coordinates of the center of the matched image, or None if not found
@@ -137,7 +135,6 @@ def click_icon(
 if __name__ == "__main__":
     # Example usage
     click_icon(
-        "marker2.png",
+        "volte_mtas.png",
         debug=True,
-        adjustment=ADJUSTMENT_MARKER,
     )

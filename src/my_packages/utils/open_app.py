@@ -10,7 +10,7 @@ from pywinauto.application import Application
 from my_packages.constants_module.constant_variables import MONITOR_INDEX
 
 # pylint: disable=import-error
-from my_packages.constants_module.urls import URL_NSP
+from my_packages.constants_module.urls import URL_MTAS
 
 
 def open_app(url, index=MONITOR_INDEX):
@@ -74,7 +74,8 @@ def open_app(url, index=MONITOR_INDEX):
                     width=target_monitor.width,
                     height=target_monitor.height,
                 )
-
+                # maximize the window
+                window.maximize()
                 #  bring the window to the foreground
                 window.set_focus()
 
@@ -86,4 +87,4 @@ def open_app(url, index=MONITOR_INDEX):
 
 
 if __name__ == "__main__":
-    open_app(URL_NSP)
+    open_app(URL_MTAS)
