@@ -87,6 +87,9 @@ def mtas():
     time.sleep(1)  # Wait for the screenshot to be taken
     # # update word doc
     update_word_docx([4, 5], width=6)  # update the docx file with mtas screenshot
+    time.sleep(1)  # Wait for the screenshot to be taken
+    # close the mtas tab
+    pg.hotkey("ctrl", "w")  # Close the current tab in the web browser
 
 
 if __name__ == "__main__":
