@@ -151,7 +151,7 @@ def nsp():
 
     # update the docx file with sites screenshot
     update_word_docx(
-        [0], SITES_SCREENSHOT_WIDTH
+        [0], SITES_SCREENSHOT_WIDTH, clean_trailing=True
     )  # update the docx file with sites screenshot
     time.sleep(1)
 
@@ -161,10 +161,7 @@ def nsp():
 
     time.sleep(1)  # Wait for the screenshot to be taken
     # update with  sinr screenshot
-    update_word_docx(
-        [1], SINR_SCREENSHOT_WIDTH
-    )  # update the docx file with INDOOR SINR screenshot
-    time.sleep(1)
+
     update_word_docx(
         [1, 2], SINR_SCREENSHOT_WIDTH
     )  # update the docx file with OUTDOOR SINR screenshot

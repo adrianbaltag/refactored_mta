@@ -388,7 +388,10 @@ def enhance_image(image, contrast_factor=1.5):
 
 if __name__ == "__main__":
     capture_partial_screenshot(
-        ["H3 Grid", "More Details"],
+        [
+            "Hide Results",
+            "Duplicate Window",
+        ],
         save_full=False,
         confidence_threshold=0.7,
         zoom_factor=2.5,

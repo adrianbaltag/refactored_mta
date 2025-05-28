@@ -14,7 +14,7 @@ def get_mdn() -> str:
     """
     res = read_image(0)
     mdn = res["mdn"]
-    print(mdn)
+    print(f"mdn: {mdn}")
     return mdn
 
 
