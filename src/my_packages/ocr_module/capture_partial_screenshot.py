@@ -146,7 +146,7 @@ from my_packages.constants_module.constant_variables import MONITOR_INDEX
 def capture_partial_screenshot(
     text_markers: List[str],
     save_full: bool = False,
-    confidence_threshold: float = 0.7,
+    confidence_threshold: float = 0.6,
     monitor_index: int = MONITOR_INDEX,
     zoom_factor: float = 2.0,
     zoom_sections: int = 4,

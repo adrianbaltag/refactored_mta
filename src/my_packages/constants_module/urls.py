@@ -3,6 +3,3 @@
 """This module contains constants for URLs used in the project."""
 
 URL_FORMY = "https://formy-project.herokuapp.com/form"
-URL_REMEDY = 
-URL_NSP = 
-URL_MTAS = 

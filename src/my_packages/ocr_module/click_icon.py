@@ -135,6 +135,9 @@ def click_icon(
 if __name__ == "__main__":
     # Example usage
     click_icon(
-        "volte_mtas.png",
-        debug=True,
+        "enter-number.png",
+        # debug=True,
+        click=True,
+        monitor_index=MONITOR_INDEX,
+        threshold=0.8,
     )
