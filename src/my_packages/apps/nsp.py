@@ -81,7 +81,7 @@ def nsp():
 
     capture_and_click("SCREENSHOT", "Ticket Number")
     time.sleep(1)  # Wait for the screenshot to be taken
-    capture_and_click("SCREENSHOT", "Ticket Number")
+    # capture_and_click("SCREENSHOT", "Ticket Number")
 
     time.sleep(3)  #
     capture_and_click(
@@ -90,11 +90,11 @@ def nsp():
     )
 
     # # click to add the mdn
-    time.sleep(1)  # Wait for the screenshot to be taken
+    time.sleep(3)  # Wait for the screenshot to be taken
     click_icon(
         "enter-number.png",
         monitor_index=MONITOR_INDEX,
-        threshold=0.8,
+        threshold=0.7,
         click=True,
     )
     time.sleep(1)  # Wait for the screenshot to be taken
@@ -105,7 +105,7 @@ def nsp():
     click_icon(
         "submit-btn.png",
         monitor_index=MONITOR_INDEX,
-        threshold=0.8,
+        threshold=0.6,
         click=True,
     )
     time.sleep(1)  # Wait for the screenshot to be taken
@@ -141,8 +141,8 @@ def nsp():
     capture_partial_screenshot(
         ["H3 Grid", "More Details"],
         save_full=False,
-        confidence_threshold=0.7,
-        zoom_factor=2.5,
+        confidence_threshold=0.6,
+        zoom_factor=3.0,
         zoom_sections=4,
         enhance_contrast=1.5,
         debug=False,
@@ -166,7 +166,7 @@ def nsp():
         [1, 2], SINR_SCREENSHOT_WIDTH
     )  # update the docx file with OUTDOOR SINR screenshot
     time.sleep(1)
-    """close the browser"""
+    # """close the browser"""
     keyboard.press_and_release("ctrl+w")
     time.sleep(1)  # Wait for the screenshot to be taken
     click_icon("nsp_leave.png", threshold=0.7, click=True)

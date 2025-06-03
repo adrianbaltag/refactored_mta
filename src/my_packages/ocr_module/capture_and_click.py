@@ -143,4 +143,4 @@ def capture_and_click(screenshot_name, keyword, monitor_index=MONITOR_INDEX):
 if __name__ == "__main__":
     # Example: Search for and click on "Enter last name" on monitor 0
 
-    capture_and_click("screenshot", "MDN")
+    capture_and_click("screenshot", "Enter Number")
